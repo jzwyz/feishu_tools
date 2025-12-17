@@ -56,7 +56,7 @@ class FeishuServer:
         # 处理业务结果
         lark.logger.info(lark.JSON.marshal(response.data, indent=4))
 
-    def send_message_card(self, receive_id: str, card_id: str, card_version: str, receive_id_type: str = 'chat_id', variable: dict = {}):
+    def send_template_card(self, receive_id: str, card_id: str, card_version: str, receive_id_type: str = 'chat_id', variable: dict = {}):
         """
         发送卡片消息
 
@@ -70,16 +70,15 @@ class FeishuServer:
         :param variable: 卡片变量
         """
         card_body = {
-            "card": {
-                "type": "template",
-                "data": {
+            "type": "template",
+            "data": {
                     "template_id": card_id,
                     "template_version_name": card_version,
                     "template_variable": variable
-                },
-            },
+            }
         }
-        self.send_message(receive_id, json.dumps(card_body), receive_id_type, msg_type='interactive')
+        self.send_message(receive_id, json.dumps(card_body),
+                          receive_id_type, msg_type='interactive')
 
     def get_chat_list(self, page_token: str = None):
         """
