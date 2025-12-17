@@ -39,7 +39,7 @@ class FeishuServer:
                           .msg_type(msg_type)
                           .content(content)
                           # 每次调用前请更换
-                          .uuid(hashlib.md5(content.encode("utf-8")).hexdigest())
+                          .uuid(hashlib.md5(f"{receive_id},{receive_id_type},{msg_type},{content}".encode("utf-8")).hexdigest())
                           .build()) \
             .build()
 
